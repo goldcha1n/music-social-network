@@ -32,15 +32,15 @@ class AddPostForm(forms.ModelForm):
 
 @login_required
 def add_post(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user
-            post.save()
-            return redirect('home')
-    else:
-        form = PostForm()
+    # if request.method == 'POST':
+    #     form = AddPostForm(request.POST, request.FILES)
+    #     if form.is_valid():
+    #         post = form.save(commit=False)
+    #         post.user = request.user
+    #         post.save()
+    #         return redirect('home')
+    # else:
+    form = AddPostForm()
     return render(request, 'SocialNetworkApp/addPost.html', {'form': form})
 
 
@@ -62,7 +62,7 @@ def profile_user(request, username):
 @login_required
 def current_user_profile(request):
     user = request.user
-    print('user : c'+user)
+    print('user : c'+str(user))
     posts = Post.objects.select_related('user__profile').filter(user=user)
     return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
 
@@ -113,8 +113,8 @@ def logout_view(request):
     return redirect('home')
 
 
-def add_post(request):
-    return render(request, 'SocialNetworkApp/addPost.html')
+# def add_post(request):
+#     return render(request, 'SocialNetworkApp/addPost.html')
 
 def add_music(request):
     return render(request, 'SocialNetworkApp/addMusic.html')

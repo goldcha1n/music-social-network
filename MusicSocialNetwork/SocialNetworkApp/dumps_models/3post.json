@@ -1,0 +1,81 @@
+[
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 1,
+  "fields": {
+    "post_text": "Регі музика",
+    "post_date": "2023-05-21",
+    "user": 1,
+    "published": false,
+    "photo_post": "post_photos/Reggae.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 2,
+  "fields": {
+    "post_text": "Мій перший альбом Rap",
+    "post_date": "2023-05-21",
+    "user": 2,
+    "published": true,
+    "photo_post": "post_photos/Rap.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 3,
+  "fields": {
+    "post_text": "Ловіть збірку треків",
+    "post_date": "2023-05-21",
+    "user": 1,
+    "published": true,
+    "photo_post": "post_photos/Reggae_FLqRGYB.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 4,
+  "fields": {
+    "post_text": "Зацініть",
+    "post_date": "2023-05-21",
+    "user": 1,
+    "published": true,
+    "photo_post": "post_photos/Pop.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 5,
+  "fields": {
+    "post_text": "Я думаю це зірве тренди",
+    "post_date": "2023-05-21",
+    "user": 4,
+    "published": true,
+    "photo_post": "post_photos/Hip_Hop_1_43105.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 6,
+  "fields": {
+    "post_text": "Послухайте це, просто вау",
+    "post_date": "2023-05-21",
+    "user": 3,
+    "published": true,
+    "photo_post": "post_photos/Rock_2_43086.png"
+  }
+},
+{
+  "model": "SocialNetworkApp.post",
+  "pk": 7,
+  "fields": {
+    "post_text": "Гл'яньте",
+    "post_date": "2023-05-21",
+    "user": 3,
+    "post_date": "2023-05-21",
+    "user": 2,
+    "published": false,
+    "photo_post": "post_photos/Hip_Hop_1_43105_5ONW4Js.png"
+  }
+}
+]

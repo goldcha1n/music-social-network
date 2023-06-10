@@ -1,0 +1,24 @@
+[
+{
+  "model": "SocialNetworkApp.musicpost",
+  "pk": 1,
+  "fields": {
+    "post_text": "Міягі бомба",
+    "post_date": "2023-06-01",
+    "user": 2,
+    "published": true,
+    "audio_post": "music_posts/miyagi_mijagi__endshpil_-_rapapam_ft_9_gramm_z2.fm.mp3"
+  }
+},
+{
+  "model": "SocialNetworkApp.musicpost",
+  "pk": 2,
+  "fields": {
+    "post_text": "Зацініть ще дрек від Miyagi",
+    "post_date": "2023-06-01",
+    "user": 3,
+    "published": true,
+    "audio_post": "music_posts/miyagi_mijagi__endshpil_-_bada-bum_z2.fm.mp3"
+  }
+}
+]

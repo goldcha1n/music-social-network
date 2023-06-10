@@ -1,0 +1,35 @@
+[
+{
+  "model": "SocialNetworkApp.comment",
+  "pk": 1,
+  "fields": {
+    "text_comment": "Це було топово",
+    "comment_date": "2023-05-21",
+    "is_self": 0,
+    "user": 1,
+    "post": 2
+  }
+},
+{
+  "model": "SocialNetworkApp.comment",
+  "pk": 2,
+  "fields": {
+    "text_comment": "Чувак це бомба",
+    "comment_date": "2023-05-21",
+    "is_self": 1,
+    "user": 2,
+    "post": 1
+  }
+},
+{
+  "model": "SocialNetworkApp.comment",
+  "pk": 3,
+  "fields": {
+    "text_comment": "Я також так вважаю",
+    "comment_date": "2023-05-21",
+    "is_self": 1,
+    "user": 4,
+    "post": 1
+  }
+}
+]

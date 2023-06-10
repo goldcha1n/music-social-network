@@ -40,20 +40,12 @@
       <form action="{% url 'add_post' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
-          <label for="post_text">Текст поста:</label>
-          <input type="text" name="post_text" id="post_text" class="form-control">
+          <label for="{{ form.post_text.id_for_label }}">Текст поста:</label>
+          {{ form.post_text }}
         </div>
         <div class="form-group">
-          <label for="post_date">Дата:</label>
-          <input type="date" name="post_date" id="post_date" class="form-control">
-        </div>
-        <div class="form-group">
-          <label for="photo_post">Фото:</label>
-          <input type="file" name="photo_post" id="photo_post" class="form-control-file">
-        </div>
-        <div class="form-group">
-          <label for="published">Опубликовано:</label>
-          <input type="checkbox" name="published" id="published">
+          <label for="{{ form.photo_post.id_for_label }}">Фото:</label>
+          {{ form.photo_post }}
         </div>
         <button type="submit" class="btn btn-primary">Додати</button>
       </form>

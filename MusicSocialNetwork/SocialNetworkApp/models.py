@@ -12,6 +12,9 @@ class Profile(models.Model):
     sex = models.BooleanField()
     music_network = models.CharField(max_length=100)
 
+    def __str__(self):
+        return str(self.user)
+
 
 class Post(models.Model):
     post_text = models.CharField(max_length=255)
@@ -20,12 +23,18 @@ class Post(models.Model):
     published = models.BooleanField()
     photo_post = models.ImageField(upload_to='post_photos/', default='post_photos/Rap.png')
 
+    def __str__(self):
+        return f'{self.user} - {self.post_text}'
+
 class MusicPost(models.Model):
     post_text = models.CharField(max_length=255)
     post_date = models.DateField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     published = models.BooleanField()
     audio_post = models.FileField(upload_to='music_posts/')
+
+    def __str__(self):
+        return f'{self.user} - {self.post_text}'
 
 class Skill(models.Model):
     name = models.CharField(max_length=100)
@@ -42,6 +51,9 @@ class Comment(models.Model):
     is_self = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user} - {self.text_comment}'
 
 class Chat(models.Model):
     participants = models.ManyToManyField(User, related_name='chats')

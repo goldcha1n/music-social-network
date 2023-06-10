@@ -1,0 +1,45 @@
+{% extends 'SocialNetworkApp/layout.html' %}
+{% load static %}
+
+{% block title %}Профіль{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" type="text/css" href="{% static 'SocialNetworkApp/css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container_profile">
+  <div class="row first-row">
+    <div class="column profile-column">
+      <img src="{{ user.profile.avatar.url }}" width="50" height="50" alt="Profile Image">
+    </div>
+    <div class="column info-column">
+      <a> Ім'я:  {{ user.get_full_name }}</a>
+      <a> {{ user.profile.middle_name }}</a>
+      <a>Про себе: {{ user.profile.bio }}</a>
+      <a> День народження: {{ user.profile.birthday }}</a>
+      <a>Соцмережа: {{ user.profile.music_network }}</a>
+    </div>
+  </div>
+  <div class="row second-row">
+    <div class="post-container-wrapper">
+      {% for post in posts %}
+      <div class="post-container">
+        <div class="user-info">
+          <img src="{{ post.user.profile.avatar.url }}" class="user-logo">
+          <p class="username">{{ post.user }}</p>
+        </div>
+        <div class="post-image">
+          <img src="{{ post.photo_post.url }}" class="post-img">
+        </div>
+        <div class="post-info">
+          <p class="post-date">Опис: {{ post.post_text }}</p>
+          <p class="post-date">Дата публікації: {{ post.post_date }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

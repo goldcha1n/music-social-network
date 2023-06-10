@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SociaVerse - Форма авторизации</title>
+  <style>
+    /* Стили формы авторизации */
+  </style>
+</head>
+<body>
+  <div class="login-form">
+    <h2>SociaVerse</h2>
+    <form method="post">
+      {% csrf_token %}
+      <label for="id_username">Логін:</label>
+      <input type="text" id="id_username" name="username" required>
+
+      <label for="id_password">Пароль:</label>
+      <input type="password" id="id_password" name="password" required>
+
+      <input type="submit" value="Увійти">
+    </form>
+  </div>
+</body>
+</html>

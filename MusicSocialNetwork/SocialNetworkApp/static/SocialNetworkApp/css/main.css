@@ -1,0 +1,151 @@
+.container {
+  display: flex;
+}
+
+.container_posts {
+  display: flex;
+}
+
+#sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#frame {
+flex-grow: 1;
+margin-left: 20%;
+margin-right: 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* Стили для кнопок меню */
+#sidebar .menu-button {
+  display: block;
+  padding: 10px;
+  font-family: 'Play';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 29px;
+  text-decoration: none;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+#sidebar .menu-button.active {
+  background-color: orange;
+}
+
+#sidebar a {
+  color: black;
+  text-decoration: none;
+}
+
+#sidebar a:hover {
+  color: #FF8718;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стили для блоков с музыкой */
+.post-container-wrapper {
+display: flex;
+flex-wrap: wrap;
+justify-content: center; /* Add this line /
+align-items: center; / Add this line */
+}
+
+.post-container {
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  flex-shrink: 0;
+  padding: 10px;
+  margin: 5px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.username {
+  font-weight: bold;
+   font-size: 20px
+
+}
+
+.post-image {
+display:flex;
+justify-content: center;
+  margin-bottom: 10px;
+}
+
+.post-img {
+
+  max-width: 100%;
+  height: auto;
+}
+
+.post-info {
+  width: 100%;
+}
+
+.post-text {
+  margin-bottom: 5px;
+}
+
+.post-date {
+  font-style: italic;
+  margin-bottom: 5px;
+}
+.comments {
+  display: none;
+}
+
+.comments.show {
+  display: block;
+}
+
+.comments-toggle {
+  cursor: pointer;
+  color: blue;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+/* Дополнительные медиа-запросы, если необходимо */
+@media screen and (max-width: 768px) {
+  #sidebar {
+    width: 100%;
+    position: static;
+    min-height: 200px;
+  }
+
+  #frame {
+    margin: 20px;
+  }
+
+  .post-container {
+    width: 100%;
+  }
+}

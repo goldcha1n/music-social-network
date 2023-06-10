@@ -36,14 +36,6 @@ class MusicPost(models.Model):
     def __str__(self):
         return f'{self.user} - {self.post_text}'
 
-class Skill(models.Model):
-    name = models.CharField(max_length=100)
-
-
-class Skills(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    skill = models.ForeignKey(Skill, on_delete=models.CASCADE)
-
 
 class Comment(models.Model):
     text_comment = models.CharField(max_length=255)
@@ -54,19 +46,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.user} - {self.text_comment}'
-
-class Chat(models.Model):
-    participants = models.ManyToManyField(User, related_name='chats')
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Chat {self.pk}'
-
-class Message(models.Model):
-    chat = models.ForeignKey(Chat, on_delete=models.CASCADE, related_name='messages')
-    sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Message {self.pk}'

@@ -5,24 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
 
-def chat(request):
-    user_chats = Chat.objects.filter(participants=request.user)
-    return render(request, 'SocialNetworkApp/chat.html', {'user_chats': user_chats})
-
-def chat_messages(request, chat_id):
-    chat = get_object_or_404(Chat, id=chat_id)
-    messages = chat.messages.all()
-    return render(request, 'SocialNetworkApp/chat_messages.html', {'chat': chat, 'messages': messages})
-
-def send_message(request, chat_id):
-    chat = get_object_or_404(Chat, id=chat_id)
-    if request.method == 'POST':
-        text = request.POST['message']
-        message = Message.objects.create(chat=chat, sender=request.user, text=text)
-        return redirect('chat_messages', chat_id=chat_id)
-    return render(request, 'SocialNetworkApp/send_message.html', {'chat': chat})
-
-
 
 class AddPostForm(forms.ModelForm):
     class Meta:
@@ -66,11 +48,6 @@ def current_user_profile(request):
     posts = Post.objects.select_related('user__profile').filter(user=user)
     return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
 
-
-
-
-def chat(request):
-    return render(request, 'SocialNetworkApp/chat.html')
 
 def music(request):
     posts = Post.objects.select_related('user__profile').all()
@@ -118,26 +95,3 @@ def logout_view(request):
 
 def add_music(request):
     return render(request, 'SocialNetworkApp/addMusic.html')
-
-class CreateChatForm(forms.ModelForm):
-    participants = forms.ModelMultipleChoiceField(queryset=User.objects.all())
-
-    class Meta:
-        model = Chat
-        fields = ['participants']
-
-
-def chat(request):
-    user_chats = Chat.objects.filter(participants=request.user)
-
-    if request.method == 'POST':
-        form = CreateChatForm(request.POST)
-        if form.is_valid():
-            chat = form.save(commit=False)
-            chat.save()
-            chat.participants.add(request.user)
-            return redirect('chat_messages', chat_id=chat.id)
-    else:
-        form = CreateChatForm()
-
-    return render(request, 'SocialNetworkApp/chat.html', {'user_chats': user_chats, 'form': form})

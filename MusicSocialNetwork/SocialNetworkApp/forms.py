@@ -2,13 +2,10 @@ from django import forms
 
 from .models import Post
 
-class AddPostForm(forms.Form):
+class AddPostForm(forms.ModelForm):
     post_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
-    post_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control'}))
-    photo_post = forms.CharField(widget=forms.ImageField(attrs={'class': 'form-control-file'}))
-    # photo_post = forms.ImageField()
-    # published = forms.BooleanField()
+    photo_post = forms.ImageField(widget=forms.FileInput(attrs={'class': 'form-control-file'}))
 
     class Meta:
         model = Post
-        fields = ('post_text', 'post_date', 'photo_post', 'user', 'published')
+        fields = ('post_text', 'photo_post')

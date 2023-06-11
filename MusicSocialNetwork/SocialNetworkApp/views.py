@@ -3,26 +3,21 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+
 from .models import *
-
-
-class AddPostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['post_text', 'post_date', 'photo_post']
-
+from .forms import AddPostForm
 
 @login_required
 def add_post(request):
-    # if request.method == 'POST':
-    #     form = AddPostForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         post = form.save(commit=False)
-    #         post.user = request.user
-    #         post.save()
-    #         return redirect('home')
-    # else:
-    form = AddPostForm()
+    if request.method == 'POST':
+        form = AddPostForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user  # Привязка текущего пользователя к посту
+            post.save()
+            return redirect('home')
+    else:
+        form = AddPostForm()
     return render(request, 'SocialNetworkApp/addPost.html', {'form': form})
 
 
@@ -44,7 +39,6 @@ def profile_user(request, username):
 @login_required
 def current_user_profile(request):
     user = request.user
-    print('user : c'+str(user))
     posts = Post.objects.select_related('user__profile').filter(user=user)
     return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
 

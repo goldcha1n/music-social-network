@@ -1,16 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
+from users.models import User
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20)
-    avatar = models.ImageField(upload_to='avatars/')
-    middle_name = models.CharField(max_length=100)
-    bio = models.CharField(max_length=255)
+    phone = models.CharField(max_length=20, blank=True)
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/User.png')
+    middle_name = models.CharField(max_length=100, blank=True)
+    bio = models.CharField(max_length=255, blank=True)
     birthday = models.DateField()
-    sex = models.BooleanField()
-    music_network = models.CharField(max_length=100)
+    social_network = models.CharField(max_length=100)
 
     def __str__(self):
         return str(self.user)
@@ -18,19 +17,17 @@ class Profile(models.Model):
 
 class Post(models.Model):
     post_text = models.CharField(max_length=255)
-    post_date = models.DateField()
+    post_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    published = models.BooleanField()
-    photo_post = models.ImageField(upload_to='post_photos/', default='post_photos/Rap.png')
+    photo_post = models.ImageField(upload_to='photo_post/', default='photo_post/Rap.png')
 
     def __str__(self):
         return f'{self.user} - {self.post_text}'
 
 class MusicPost(models.Model):
     post_text = models.CharField(max_length=255)
-    post_date = models.DateField()
+    post_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    published = models.BooleanField()
     audio_post = models.FileField(upload_to='music_posts/')
 
     def __str__(self):
@@ -39,7 +36,7 @@ class MusicPost(models.Model):
 
 class Comment(models.Model):
     text_comment = models.CharField(max_length=255)
-    comment_date = models.DateField()
+    comment_date = models.DateField(auto_now_add=True)
     is_self = models.IntegerField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

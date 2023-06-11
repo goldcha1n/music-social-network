@@ -5,21 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from .models import *
-from .forms import AddPostForm
-
-@login_required
-def add_post(request):
-    if request.method == 'POST':
-        form = AddPostForm(data=request.POST, files=request.FILES)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.user = request.user  # Привязка текущего пользователя к посту
-            post.save()
-            return redirect('home')
-    else:
-        form = AddPostForm()
-    return render(request, 'SocialNetworkApp/addPost.html', {'form': form})
-
+from .forms import AddPostForm, AddMusicForm
 
 def home(request):
     posts = Post.objects.select_related('user__profile').all()
@@ -83,9 +69,29 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+@login_required
+def add_post(request):
+    if request.method == 'POST':
+        form = AddPostForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user  # Привязка текущего пользователя к посту
+            post.save()
+            return redirect('home')
+    else:
+        form = AddPostForm()
+    return render(request, 'SocialNetworkApp/addPost.html', {'form': form})
 
-# def add_post(request):
-#     return render(request, 'SocialNetworkApp/addPost.html')
-
+@login_required
 def add_music(request):
-    return render(request, 'SocialNetworkApp/addMusic.html')
+    if request.method == 'POST':
+        form = AddMusicForm(data=request.POST, files=request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user  # Привязка текущего пользователя к посту
+            post.save()
+            return redirect('home')
+    else:
+        form = AddMusicForm()
+    return render(request, 'SocialNetworkApp/addMusic.html', {'form': form})
+

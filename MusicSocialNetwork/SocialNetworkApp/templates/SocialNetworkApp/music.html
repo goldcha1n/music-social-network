@@ -11,7 +11,7 @@
   {% for post in music_posts %}
   <div class="post-container">
     <div class="user-info">
-      <a href="{% url 'profile_user' post.user.username %}">
+      <a href="{% url 'SocialNetworkApp:profile_user' post.user.username %}">
         <img src="{{ post.user.profile.avatar.url }}" class="user-logo">
       </a>
       <p class="username">{{ post.user }}</p>

@@ -1,7 +1,7 @@
 {% extends 'SocialNetworkApp/layout.html' %}
 {% load static %}
 
-{% block title %}Додати музику{% endblock %}
+{% block title %}Логін{% endblock %}
 
 {% block head %}
 <style>
@@ -37,18 +37,18 @@
 {% block content %}
 <div class="containerAddPost">
   <div class="post-containerAddPost">
-    <h2>Додати музику</h2>
-    <form action="{% url 'SocialNetworkApp:add_music' %}" method="POST" enctype="multipart/form-data">
+    <h2>Логін</h2>
+    <form action="{% url 'users:login' %}" method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="form-group">
-        <label for="{{ form.post_text.id_for_label }}">Текст посту:</label>
-        {{ form.post_text }}
+        <label for="{{ form.username.id_for_label }}">Логін:</label>
+        {{ form.username }}
       </div>
       <div class="form-group">
-        <label for="{{ form.audio_post.id_for_label }}">Музика:</label>
-        {{ form.audio_post }}
+        <label for="{{ form.password.id_for_label }}">Пароль:</label>
+        {{ form.password }}
       </div>
-      <button type="submit" class="btn btn-primary">Додати</button>
+      <button type="submit" class="btn btn-primary">Увійти</button>
     </form>
   </div>
 </div>

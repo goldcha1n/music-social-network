@@ -1,0 +1,67 @@
+{% extends 'SocialNetworkApp/layout.html' %}
+{% load static %}
+
+{% block title %}Реєстрація{% endblock %}
+
+{% block head %}
+<style>
+.containerAddPost {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.post-containerAddPost{
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  display: block;
+  width: 200px;
+  margin: 0 auto;
+}
+
+.audio-player {
+  width
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="containerAddPost">
+  <div class="post-containerAddPost">
+    <h2>Реєстрація</h2>
+    <form action="{% url 'users:register' %}" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.first_name.id_for_label }}">Імя:</label>
+        {{ form.first_name }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.last_name.id_for_label }}">Фамілія:</label>
+        {{ form.last_name }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Введіть пароль:</label>
+        {{ form.password1 }}
+       </div>
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Повторіть пароль:</label>
+        {{ form.password2 }}
+       </div>
+      <button type="submit" class="btn btn-primary">Зареєструватися</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -47,7 +47,7 @@ def user_login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('SocialNetworkApp:home')
         else:
             return render(request, 'SocialNetworkApp/user_login.html', {'error': 'Неверные данные для входа'})
     return render(request, 'SocialNetworkApp/user_login.html')
@@ -59,7 +59,7 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('SocialNetworkApp:home')
         else:
             # Обработка ошибки неверных данных авторизации
             pass
@@ -67,7 +67,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect('home')
+    return redirect('SocialNetworkApp:home')
 
 @login_required
 def add_post(request):
@@ -77,7 +77,7 @@ def add_post(request):
             post = form.save(commit=False)
             post.user = request.user  # Привязка текущего пользователя к посту
             post.save()
-            return redirect('home')
+            return redirect('SocialNetworkApp:home')
     else:
         form = AddPostForm()
     return render(request, 'SocialNetworkApp/addPost.html', {'form': form})
@@ -90,7 +90,7 @@ def add_music(request):
             post = form.save(commit=False)
             post.user = request.user  # Привязка текущего пользователя к посту
             post.save()
-            return redirect('home')
+            return redirect('SocialNetworkApp:home')
     else:
         form = AddMusicForm()
     return render(request, 'SocialNetworkApp/addMusic.html', {'form': form})

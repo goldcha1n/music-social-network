@@ -10,6 +10,7 @@ urlpatterns = [
     path('post/<int:post_id>/delete', views.delete_post, name='delete_post'),
     path('post/like/<int:post_id>', views.like_post, name='like_post'),
     path('post/unlike/<int:post_id>', views.unlike_post, name='unlike_post'),
+    path('liked_posts/', views.liked_posts, name='liked_posts'),
     path('music/', views.music, name='music'),
     path('music/<int:music_id>/delete', views.delete_music, name='delete_music'),
     path('profile/<str:username>/', views.profile_user, name='profile_user'),

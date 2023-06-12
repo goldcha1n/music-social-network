@@ -11,13 +11,13 @@
 <div class="container_profile">
   <div class="row first-row">
     <div class="column profile-column">
-      <img src="{{ user.avatar.url }}" width="50" height="50" alt="Profile Image">
+      <img src="{{ user_profile.avatar.url }}" width="50" height="50" alt="Profile Image">
     </div>
     <div class="column info-column">
-      <a>Ім'я:  {{ user.get_full_name }}</a>
-      {% if user.bio %}<a>Про себе: {{ user.bio }}</a> {% endif %}
-      {% if user.phone %}<a>Телефон: {{ user.phone }}</a> {% endif %}
-      {% if user.birthday %}<a>День народження: {{ user.birthday }} {% endif %}</a>
+      <a>Ім'я:  {{ user_profile.get_full_name }}</a>
+      {% if user_profile.bio %}<a>Про себе: {{ user_profile.bio }}</a> {% endif %}
+      {% if user_profile.phone %}<a>Телефон: {{ user_profile.phone }}</a> {% endif %}
+      {% if user_profile.birthday %}<a>День народження: {{ user_profile.birthday }} {% endif %}</a>
     </div>
   </div>
   <div class="row second-row">

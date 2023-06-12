@@ -8,20 +8,27 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from .models import *
-from .forms import AddPostForm, AddMusicForm, AddProfileForm
+from .forms import AddPostForm, AddMusicForm, AddProfileForm, MusicPost
 
-def count_likes(request, post_id):
+def count_likes_posts(request, post_id):
     post = Post.objects.get(id=post_id)
-    like_count = Like.objects.filter(post=post).aggregate(total_likes=Count('id'))
+    like_count = Like_Post.objects.filter(post=post).aggregate(total_likes=Count('id'))
+
+    total_likes = like_count['total_likes']
+    return total_likes
+
+def count_likes_musics(request, music_id):
+    music = MusicPost.objects.get(id=music_id)
+    like_count = Like_Post.objects.filter(post=post).aggregate(total_likes=Count('id'))
 
     total_likes = like_count['total_likes']
     return total_likes
 
 def post(request, post_id):
     post = Post.objects.get(id=post_id)
-    total_likes = count_likes(request, post_id)
+    total_likes = count_likes_posts(request, post_id)
     try:
-        likes = Like.objects.get(user=request.user, post=post)
+        likes = Like_Post.objects.get(user=request.user, post=post)
     except:
         likes = None
     return render(request, 'SocialNetworkApp/post.html', {'post': post, 'total_likes': total_likes, 'likes': likes})
@@ -54,9 +61,9 @@ def home(request):
     return render(request, 'SocialNetworkApp/home.html', {'posts': posts,})
 
 def profile_user(request, username):
-    user = get_object_or_404(User, username=username)
-    posts = Post.objects.select_related('user').filter(user=user)
-    return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
+    user_profile = get_object_or_404(User, username=username)
+    posts = Post.objects.select_related('user').filter(user=user_profile)
+    return render(request, 'SocialNetworkApp/profile_user.html', {'user_profile': user_profile, 'posts': posts})
 
 @login_required
 def current_user_profile(request):
@@ -150,8 +157,8 @@ def like_post(request, post_id):
     user = request.user
 
     # Проверяем, не оставлял ли пользователь уже лайк для данной записи
-    if not Like.objects.filter(post=post, user=user).exists():
-        like = Like(post=post, user=user)
+    if not Like_Post.objects.filter(post=post, user=user).exists():
+        like = Like_Post(post=post, user=user)
         like.save()
     return redirect('SocialNetworkApp:post', post.id)
 
@@ -160,10 +167,19 @@ def unlike_post(request, post_id):
     user = request.user
 
     # Проверяем, существует ли лайк для данной записи и пользователя
-    like = get_object_or_404(Like, post=post, user=user)
+    like = get_object_or_404(Like_Post, post=post, user=user)
     like.delete()
-    page_url = f'post/{post_id}/'
     return redirect('SocialNetworkApp:post', post.id)
+
+
+def liked_posts(request):
+    user = request.user
+    liked_posts = Like_Post.objects.filter(user=user)
+    print('>>' + str(post))
+
+    # Остальной код представления
+
+    return render(request, 'SocialNetworkApp/liked_posts.html', {'liked_posts': liked_posts})
 
 
 

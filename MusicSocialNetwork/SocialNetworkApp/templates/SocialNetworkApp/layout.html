@@ -22,9 +22,11 @@
         <a class="menu-button" href="{% url 'SocialNetworkApp:home' %}">Головна</a>
         <a class="menu-button" href="{% url 'SocialNetworkApp:music' %}">Музика</a>
         {% if user.is_authenticated %}
+            <a class="menu-button" href="{% url 'SocialNetworkApp:liked_posts' %}">Вподобані пости</a>
+            <a class="menu-button" href="{% url 'SocialNetworkApp:liked_posts' %}">Вподобана музика</a>
             <a class="menu-button" href="{% url 'SocialNetworkApp:current_user_profile' %}">Профіль</a>
             <a class="menu-button" href="{% url 'SocialNetworkApp:add_music'%}">Додати музику</a>
-        <a class="menu-button" href="{% url 'SocialNetworkApp:add_post'%}">Додати пост</a>
+            <a class="menu-button" href="{% url 'SocialNetworkApp:add_post'%}">Додати пост</a>
             <a class="menu-button" href="{% url 'users:logout' %}">Вийти</a>
         {% else %}
             <a class="menu-button" href="{% url 'users:login' %}">Увійти</a>

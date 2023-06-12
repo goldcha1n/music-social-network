@@ -1,0 +1,31 @@
+{% extends 'SocialNetworkApp/layout.html' %}
+{% load static %}
+{% block title %}Головна{% endblock %}
+
+{% block head %}
+<script src="{% static 'SocialNetworkApp/js/show_comments.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="post-container-wrapper">
+  {% for liked_post in liked_posts %}
+  <div class="post-container">
+    <div class="user-info">
+      <a href="{% url 'SocialNetworkApp:profile_user' liked_post.post.user.username %}">
+  <img src="{{ liked_post.post.user.avatar.url }}" class="user-logo">
+      </a>
+      <p class="username">{{ liked_post.post.user }}</p>
+    </div>
+    <div class="post-image">
+    <a href="{% url 'SocialNetworkApp:post' liked_post.post.id %}">
+      <img src="{{ liked_post.post.photo_post.url }}" class="post-img">
+    </a>
+    </div>
+    <div class="post-info">
+      <p class="post-date">Опис: {{ liked_post.post.post_text }}</p>
+      <p class="post-date">Дата публікації: {{ post.post_date }}</p>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

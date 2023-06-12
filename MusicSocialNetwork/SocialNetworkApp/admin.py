@@ -20,6 +20,6 @@ class PostAdmin(ModelAdmin):
 class ProfileAdmin(ModelAdmin):
     model = MusicPost
 
-@register(Like)
+@register(Like_Post)
 class LikeAdmin(ModelAdmin):
-    model = Like
+    model = Like_Post

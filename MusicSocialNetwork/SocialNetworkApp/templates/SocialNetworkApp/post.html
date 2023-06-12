@@ -13,6 +13,7 @@
       <a href="{% url 'SocialNetworkApp:profile_user' post.user.username %}">
   <img src="{{ post.user.avatar.url }}" class="user-logo">
 </a>
+    {% if post.user %}
         <p class="username">{{ post.user }}</p>
     </div>
     <div class="post-image">
@@ -22,7 +23,19 @@
     <div class="post-info">
       <p class="post-date">Опис: {{ post.post_text }}</p>
       <p class="post-date">Дата публікації: {{ post.post_date }}</p>
+      <p>Лайки: {{ total_likes }}</p>
+        {% if not user == likes.user %}
+            <a href="{% url 'SocialNetworkApp:like_post' post.id %}">Подобається</a>
+        {% else %}
+            <a href="{% url 'SocialNetworkApp:unlike_post' post.id %}">Більше не подобається</a>
+        {% endif %}
+        {% if user == post.user %}
+        <a href="{% url 'SocialNetworkApp:delete_post' post.id %}">Видалити</a>
+        {% endif %}
     </div>
+      {% else %}
+      <p class="post-date">Цього посту не існує</p>
+      {% endif %}
   </div>
 </div>
 {% endblock %}

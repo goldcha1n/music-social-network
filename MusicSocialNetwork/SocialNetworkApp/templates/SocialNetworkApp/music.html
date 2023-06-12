@@ -19,6 +19,9 @@
     <div class="post-info">
       <p class="post-date">Опис: {{ post.post_text }}</p>
       <p class="post-date">Дата публікації: {{ post.post_date }}</p>
+      {% if user == post.user %}
+        <a href="{% url 'SocialNetworkApp:delete_music' post.id %}">Видалити</a>
+      {% endif %}
     </div>
     <div class="audio-player">
       <audio controls>

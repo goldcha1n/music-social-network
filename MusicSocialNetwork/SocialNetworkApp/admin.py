@@ -19,3 +19,7 @@ class PostAdmin(ModelAdmin):
 @register(MusicPost)
 class ProfileAdmin(ModelAdmin):
     model = MusicPost
+
+@register(Like)
+class LikeAdmin(ModelAdmin):
+    model = Like

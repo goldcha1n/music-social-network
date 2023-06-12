@@ -9,8 +9,12 @@ from django.urls import reverse
 from .models import *
 from .forms import AddPostForm, AddMusicForm, AddProfileForm
 
+def post(request, post_id):
+    post = Post.objects.get(id=post_id)
+    return render(request, 'SocialNetworkApp/post.html', {'post': post})
+
 def home(request):
-    posts = Post.objects.select_related('user').all()
+    posts = Post.objects.order_by('-post_date')
     comment_dict = {}
 
     for post in posts:
@@ -107,6 +111,6 @@ def add_profile(request):
     else:
         form = AddProfileForm(instance=request.user)
 
-    posts = Post.objects.select_related('user').all()
+    posts = Post.objects.select_related('user').filter(user=request.user)
     return render(request, 'SocialNetworkApp/AddProfileUser.html', {'form': form, 'posts': posts})
 

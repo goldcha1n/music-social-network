@@ -6,6 +6,7 @@ app_name = 'SocialNetworkApp'
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('post/<int:post_id>', views.post, name='post'),
     path('profile/<str:username>/', views.profile_user, name='profile_user'),
     path('profileCurrent/', views.current_user_profile, name='current_user_profile'),
     path('addMusic/', views.add_music, name='add_music'),

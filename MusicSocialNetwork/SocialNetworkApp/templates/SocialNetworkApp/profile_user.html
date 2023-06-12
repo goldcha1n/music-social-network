@@ -34,7 +34,9 @@
           <p class="username">{{ post.user }}</p>
         </div>
         <div class="post-image">
+        <a href="{% url 'SocialNetworkApp:post' post.id %}">
           <img src="{{ post.photo_post.url }}" class="post-img">
+        </a>
         </div>
         <div class="post-info">
           <p class="post-date">Опис: {{ post.post_text }}</p>

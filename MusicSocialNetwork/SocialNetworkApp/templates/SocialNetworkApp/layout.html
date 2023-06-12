@@ -16,7 +16,7 @@
     <div id="sidebar">
         <div id="profile-image">
             {% if user.is_authenticated %}
-                {% if user.profile.avatar %}<img src="{{ user.profile.avatar.url }}" width="175" height="175" alt="Profile Image"> {% endif %}
+                {% if user.avatar %}<img src="{{ user.avatar.url }}" width="175" height="175" alt="Profile Image"> {% endif %}
             {% endif %}
         </div>
         <a class="menu-button" href="{% url 'SocialNetworkApp:home' %}">Головна</a>

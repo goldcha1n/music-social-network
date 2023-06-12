@@ -4,12 +4,9 @@ from users.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=20, blank=True)
-    avatar = models.ImageField(upload_to='avatars/', default='avatars/User.png')
-    middle_name = models.CharField(max_length=100, blank=True)
-    bio = models.CharField(max_length=255, blank=True)
-    birthday = models.DateField()
-    social_network = models.CharField(max_length=100)
+    phone = models.CharField(max_length=20, blank=True, null=True)
+    bio = models.CharField(max_length=255, blank=True, null=True)
+    birthday = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return str(self.user)

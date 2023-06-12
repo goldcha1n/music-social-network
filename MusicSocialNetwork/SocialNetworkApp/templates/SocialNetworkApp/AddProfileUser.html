@@ -14,14 +14,34 @@
       <img src="{{ user.avatar.url }}" width="50" height="50" alt="Profile Image">
     </div>
     <div class="column info-column">
-      <a>Ім'я:  {{ user.get_full_name }}</a>
-      {% if user.profile.bio %}<a>Про себе: {{ user.profile.bio }}</a> {% endif %}
-      {% if user.profile.birthday %}<a>День народження: {{ user.profile.birthday }} {% endif %}</a>
-      {% if user.profile %}
-      <a style="color: blue; text-decoration: none;" href="{% url 'SocialNetworkApp:add_profile' %}">Редагувати профіль</a>
-      {% else %}
-      <a style="color: blue; text-decoration: none;" href="{% url 'SocialNetworkApp:add_profile' %}">Додати інформацію</a>
-      {% endif %}
+      <form action="{% url 'SocialNetworkApp:add_profile' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form1.first_name.id_for_label }}">Імя:</label>
+          {{ form1.first_name }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form1.last_name.id_for_label }}">Фамілія:</label>
+          {{ form1.last_name }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form1.avatar.id_for_label }}">Аватар:</label>
+          {{ form1.avatar }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form2.phone.id_for_label }}">Телефон:</label>
+          {{ form2.phone }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form2.bio.id_for_label }}">Опис:</label>
+          {{ form2.bio }}
+        </div>
+        <div class="form-group">
+          <label for="{{ form2.birthday.id_for_label }}">День народження:</label>
+          {{ form2.birthday }}
+        </div>
+        <button type="submit" class="btn btn-primary">Додати</button>
+      </form>
     </div>
   </div>
   <div class="row second-row">

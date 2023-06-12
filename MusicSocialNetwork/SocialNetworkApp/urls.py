@@ -10,6 +10,7 @@ urlpatterns = [
     path('profileCurrent/', views.current_user_profile, name='current_user_profile'),
     path('addMusic/', views.add_music, name='add_music'),
     path('addPost/', views.add_post, name='add_post'),
+    path('addProfile/', views.add_profile, name='add_profile'),
     path('music/', views.music, name='music'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout_view'),
 ]

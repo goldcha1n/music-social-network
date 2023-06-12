@@ -7,10 +7,10 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from .models import *
-from .forms import AddPostForm, AddMusicForm, AddProfileForm1, AddProfileForm2
+from .forms import AddPostForm, AddMusicForm, AddProfileForm
 
 def home(request):
-    posts = Post.objects.select_related('user__profile').all()
+    posts = Post.objects.select_related('user').all()
     comment_dict = {}
 
     for post in posts:
@@ -21,19 +21,19 @@ def home(request):
 
 def profile_user(request, username):
     user = get_object_or_404(User, username=username)
-    posts = Post.objects.select_related('user__profile').filter(user=user)
+    posts = Post.objects.select_related('user').filter(user=user)
     return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
 
 @login_required
 def current_user_profile(request):
     user = request.user
-    posts = Post.objects.select_related('user__profile').filter(user=user)
+    posts = Post.objects.select_related('user').filter(user=user)
     return render(request, 'SocialNetworkApp/profile_user.html', {'user': user, 'posts': posts})
 
 
 def music(request):
-    posts = Post.objects.select_related('user__profile').all()
-    music_posts = MusicPost.objects.select_related('user__profile').all()
+    posts = Post.objects.select_related('user').all()
+    music_posts = MusicPost.objects.select_related('user').all()
     comment_dict = {}
 
     for post in posts:
@@ -92,7 +92,7 @@ def add_music(request):
             post = form.save(commit=False)
             post.user = request.user  # Привязка текущего пользователя к посту
             post.save()
-            return redirect('SocialNetworkApp:home')
+            return redirect('SocialNetworkApp:music')
     else:
         form = AddMusicForm()
     return render(request, 'SocialNetworkApp/addMusic.html', {'form': form})
@@ -100,23 +100,13 @@ def add_music(request):
 @login_required
 def add_profile(request):
     if request.method == 'POST':
-        form1 = AddProfileForm1(instance=request.user, data=request.POST, files=request.FILES)
-        form2 = AddProfileForm2(instance=request.user.profile, data=request.POST, files=request.FILES)  # обращаемся к профилю пользователя чтобы вывести данные формы в форму
-        if form1.is_valid():
-            if form2.is_valid():
-                form1.save()
-                profile = form2.save(commit=False)
-                profile.user = request.user  # привязываем профиль к пользователю
-                profile.save()
-                return HttpResponseRedirect(reverse('SocialNetworkApp:current_user_profile'))
-            else:
-                print(form2.errors)
-        else:
-            print(form1.errors)
+        form = AddProfileForm(instance=request.user, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('SocialNetworkApp:current_user_profile'))
     else:
-        form1 = AddProfileForm1(instance=request.user)
-        form2 = AddProfileForm2(instance=request.user.profile)  # обращаемся к профилю пользователя чтобы вывести данные формы в форму
+        form = AddProfileForm(instance=request.user)
 
-    posts = Post.objects.select_related('user__profile').all()
-    return render(request, 'SocialNetworkApp/AddProfileUser.html', {'form1': form1, 'form2': form2, 'posts': posts})
+    posts = Post.objects.select_related('user').all()
+    return render(request, 'SocialNetworkApp/AddProfileUser.html', {'form': form, 'posts': posts})
 

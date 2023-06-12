@@ -15,9 +15,10 @@
     </div>
     <div class="column info-column">
       <a>Ім'я:  {{ user.get_full_name }}</a>
-      {% if user.profile.bio %}<a>Про себе: {{ user.profile.bio }}</a> {% endif %}
-      {% if user.profile.birthday %}<a>День народження: {{ user.profile.birthday }} {% endif %}</a>
-      {% if user.profile %}
+      {% if user.bio %}<a>Про себе: {{ user.bio }}</a> {% endif %}
+      {% if user.phone %}<a>Телефон: {{ user.phone }}</a> {% endif %}
+      {% if user.birthday %}<a>День народження: {{ user.birthday }} {% endif %}</a>
+      {% if user %}
       <a style="color: blue; text-decoration: none;" href="{% url 'SocialNetworkApp:add_profile' %}">Редагувати профіль</a>
       {% else %}
       <a style="color: blue; text-decoration: none;" href="{% url 'SocialNetworkApp:add_profile' %}">Додати інформацію</a>

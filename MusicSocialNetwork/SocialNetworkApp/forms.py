@@ -1,6 +1,6 @@
 from django import forms
 from users.models import User
-from .models import Post, MusicPost, Profile
+from .models import Post, MusicPost
 
 class AddPostForm(forms.ModelForm):
     post_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control'}))
@@ -20,7 +20,7 @@ class AddMusicForm(forms.ModelForm):
         fields = ('post_text', 'audio_post')
 
 
-class AddProfileForm1(forms.ModelForm):
+class AddProfileForm(forms.ModelForm):
     first_name = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введіть Імя'}))
     last_name = forms.CharField(
@@ -28,13 +28,6 @@ class AddProfileForm1(forms.ModelForm):
     avatar = forms.ImageField(
         widget=forms.FileInput(attrs={'class': 'form-control-file', 'placeholder': 'Виберіть зображення'}),
         required=False)
-
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name', 'avatar')
-
-
-class AddProfileForm2(forms.ModelForm):
     phone = forms.CharField(
         widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Введіть свій телефон'}), required=False)
     bio = forms.CharField(
@@ -43,5 +36,5 @@ class AddProfileForm2(forms.ModelForm):
         widget=forms.DateInput(attrs={'class': 'form-control', 'placeholder': 'Введіть дату свого дня народження'}), required=False)
 
     class Meta:
-        model = Profile
-        fields = ('phone', 'bio', 'birthday')
+        model = User
+        fields = ('first_name', 'last_name', 'avatar', 'phone', 'bio', 'birthday')

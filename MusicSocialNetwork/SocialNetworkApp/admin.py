@@ -16,10 +16,6 @@ class CommentAdmin(ModelAdmin):
 class PostAdmin(ModelAdmin):
     model = Post
 
-@register(Profile)
-class ProfileAdmin(ModelAdmin):
-    model = Profile
-
 @register(MusicPost)
 class ProfileAdmin(ModelAdmin):
     model = MusicPost

@@ -16,6 +16,7 @@ class MusicPost(models.Model):
     post_date = models.DateField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     audio_post = models.FileField(upload_to='music_posts/')
+    like = models.OneToOneField(to='Like_Music', on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return f'{self.user} - {self.post_text}'
@@ -43,8 +44,8 @@ class Like_Post(models.Model):
 
 class Like_Music(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    music = models.ForeignKey(MusicPost, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Like by {self.user.username} on {self.post.post_text}"
+        return f"Like by {self.user.username} on {self.music.post_text}"

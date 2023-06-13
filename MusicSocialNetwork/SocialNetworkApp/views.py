@@ -18,9 +18,8 @@ def count_likes_posts(request, post_id):
     return total_likes
 
 def count_likes_musics(request, music_id):
-    music = MusicPost.objects.get(id=music_id)
-    like_count = Like_Post.objects.filter(post=post).aggregate(total_likes=Count('id'))
-
+    post = MusicPost.objects.get(id=music_id)
+    like_count = Like_Music.objects.filter(music=post).aggregate(total_likes=Count('id'))
     total_likes = like_count['total_likes']
     return total_likes
 
@@ -32,6 +31,15 @@ def post(request, post_id):
     except:
         likes = None
     return render(request, 'SocialNetworkApp/post.html', {'post': post, 'total_likes': total_likes, 'likes': likes})
+
+def music_post(request, music_id):
+    post = MusicPost.objects.get(id=music_id)
+    total_likes = count_likes_musics(request, music_id)
+    try:
+        likes = Like_Music.objects.get(user=request.user, music=post)
+    except:
+        likes = None
+    return render(request, 'SocialNetworkApp/music_post.html', {'post': post, 'total_likes': total_likes, 'likes': likes})
 
 @login_required
 def delete_post(request, post_id):
@@ -73,15 +81,8 @@ def current_user_profile(request):
 
 
 def music(request):
-    posts = Post.objects.select_related('user').all()
     music_posts = MusicPost.objects.select_related('user').all()
-    comment_dict = {}
-
-    for post in posts:
-        comments = Comment.objects.filter(post=post)
-        comment_dict[post.id] = comments
-
-    return render(request, 'SocialNetworkApp/music.html', {'music_posts': music_posts, 'comment_dict': comment_dict})
+    return render(request, 'SocialNetworkApp/music.html', {'music_posts': music_posts})
 
 def user_login(request):
     if request.method == 'POST':
@@ -175,11 +176,41 @@ def unlike_post(request, post_id):
 def liked_posts(request):
     user = request.user
     liked_posts = Like_Post.objects.filter(user=user)
-    print('>>' + str(post))
 
     # Остальной код представления
 
     return render(request, 'SocialNetworkApp/liked_posts.html', {'liked_posts': liked_posts})
 
+def like_music(request, music_id):
+    music = get_object_or_404(MusicPost, id=music_id)
+    user = request.user
 
+    # Проверяем, не оставлял ли пользователь уже лайк для данной записи
+    if not Like_Music.objects.filter(music=music, user=user).exists():
+        like = Like_Music(music=music, user=user)
+        like.save()
+    return redirect('SocialNetworkApp:music_post', music_id)
 
+def unlike_music(request, music_id):
+    music = get_object_or_404(MusicPost, id=music_id)
+    user = request.user
+    path = request.path
+    print(path)
+
+    # Проверяем, существует ли лайк для данной записи и пользователя
+    try:
+        like = get_object_or_404(Like_Music, music=music, user=user)
+        like.delete()
+        return redirect('SocialNetworkApp:music_post', music_id)
+
+    except:
+
+        return redirect('SocialNetworkApp:music_post', music_id)
+
+def liked_musics(request):
+    user = request.user
+    liked_posts = Like_Music.objects.filter(user=user)
+
+    # Остальной код представления
+
+    return render(request, 'SocialNetworkApp/liked_musics.html', {'liked_posts': liked_posts})

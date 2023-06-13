@@ -8,7 +8,6 @@
 
 {% block content %}
 <div class="post-container-wrapper">
-  {% for post in music_posts %}
   <div class="post-container">
     <div class="user-info">
       <a href="{% url 'SocialNetworkApp:profile_user' post.user.username %}">
@@ -16,18 +15,26 @@
       </a>
       <p class="username">{{ post.user.username }}</p>
     </div>
-     <div class="audio-player">
+    <div class="post-info">
+      <p class="post-date">Опис: {{ post.post_text }}</p>
+      <p class="post-date">Дата публікації: {{ post.post_date }}</p>
+      <p>Лайки: {{ total_likes }}</p>
+      {% if not user == likes.user %}
+          <a href="{% url 'SocialNetworkApp:like_music' post.id %}">Подобається</a>
+      {% else %}
+          <a href="{% url 'SocialNetworkApp:unlike_music' post.id %}">Більше не подобається</a>
+      {% endif %}
+      {% if user == post.user %}
+        <a href="{% url 'SocialNetworkApp:delete_music' post.id %}">Видалити</a>
+      {% endif %}
+
+    </div>
+    <div class="audio-player">
       <audio controls>
         <source src="{{ post.audio_post.url }}" type="audio/mpeg">
         Ваш браузер не поддерживает аудиоэлемент.
       </audio>
     </div>
-    <div class="post-info">
-      <p class="post-date">Опис: {{ post.post_text }}</p>
-      <p class="post-date">Дата публікації: {{ post.post_date }}</p>
-      <a href="{% url 'SocialNetworkApp:music_post' post.id %}">Відкрити пост</a>
-    </div>
   </div>
-  {% endfor %}
 </div>
 {% endblock %}
